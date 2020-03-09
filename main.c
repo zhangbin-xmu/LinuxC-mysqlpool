@@ -4,7 +4,7 @@
 
 void main()
 {
-	SQL_CONN_POOL* sp = sql_pool_create(10, "localhost", 3306, "mysql", "root", "MYSQLlx&gw7!");
+	SQL_CONN_POOL* sp = sql_pool_create(10, "localhost", 3306, "mysql", "root", "******");
 	printf("=========================\n");
 	printf("conn_count: --%d--\n", sp->conn_count);
 	printf("busy_count: --%d--\n", sp->busy_count);
