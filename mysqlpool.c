@@ -62,11 +62,14 @@ void sql_pool_destroy(SQL_CONN_POOL* sql_conn_pool)
 
 		if (NULL != sql_conn_pool->conn_pool[i].mysql_sock) {
 			mysql_close(sql_conn_pool->conn_pool[i].mysql_sock);
+			mysql_library_end();
 			sql_conn_pool->conn_pool[i].mysql_sock = NULL;
 		}
 		sql_conn_pool->conn_pool[i].sql_state = DB_DISCONN;
 		sql_conn_pool->conn_count--;
 	}
+	free(sql_conn_pool);
+	sql_conn_pool = NULL;
 }
 
 ////////////////////////////////////////////////////////////
@@ -103,6 +106,7 @@ void sql_pool_reduce(SQL_CONN_POOL* sql_conn_pool, int count)
 
 		if (NULL != sql_conn_pool->conn_pool[i].mysql_sock) {
 			mysql_close(sql_conn_pool->conn_pool[i].mysql_sock);
+			mysql_library_end();
 			sql_conn_pool->conn_pool[i].mysql_sock = NULL;
 		}
 		sql_conn_pool->conn_pool[i].sql_state = DB_DISCONN;
